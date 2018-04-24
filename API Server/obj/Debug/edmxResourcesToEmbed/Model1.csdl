@@ -1,0 +1,492 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BooksModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Book">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Points" Type="Int32" Nullable="false" />
+    <Property Name="Discription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Date_Uploaded" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Subcategory_Id" Type="Int32" />
+    <Property Name="ImageUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="City_Id" Type="Int32" />
+    <NavigationProperty Name="City" Relationship="Self.FK_Book_City" FromRole="Book" ToRole="City" />
+    <NavigationProperty Name="SubCategory" Relationship="Self.FK_Book_SubCategory" FromRole="Book" ToRole="SubCategory" />
+    <NavigationProperty Name="Images" Relationship="Self.FK_Images_Book" FromRole="Book" ToRole="Images" />
+    <NavigationProperty Name="Messages" Relationship="Self.FK_Messages_Book" FromRole="Book" ToRole="Messages" />
+    <NavigationProperty Name="Seller_Approved_book" Relationship="Self.FK_Seller_Approved_book_Book" FromRole="Book" ToRole="Seller_Approved_book" />
+  </EntityType>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="SubCategories" Relationship="Self.FK_SubCategory_Category" FromRole="Category" ToRole="SubCategory" />
+  </EntityType>
+  <EntityType Name="City">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Governate_Id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Books" Relationship="Self.FK_Book_City" FromRole="City" ToRole="Book" />
+    <NavigationProperty Name="Governate" Relationship="Self.FK_City_Governate" FromRole="City" ToRole="Governate" />
+  </EntityType>
+  <EntityType Name="Governate">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Cities" Relationship="Self.FK_City_Governate" FromRole="Governate" ToRole="City" />
+  </EntityType>
+  <EntityType Name="History">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Buyer_Id" Type="Int32" Nullable="false" />
+    <Property Name="Seller_Id" Type="Int32" Nullable="false" />
+    <Property Name="Book_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Point" Type="Int32" Nullable="false" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="User" Relationship="Self.FK_History_User" FromRole="History" ToRole="User" />
+    <NavigationProperty Name="User1" Relationship="Self.FK_History_User1" FromRole="History" ToRole="User" />
+  </EntityType>
+  <EntityType Name="Image">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Book_Id" Type="Int32" Nullable="false" />
+    <Property Name="Img_URL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Book" Relationship="Self.FK_Images_Book" FromRole="Images" ToRole="Book" />
+  </EntityType>
+  <EntityType Name="Message">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Sender_Id" Type="Int32" Nullable="false" />
+    <Property Name="Receiver_Id" Type="Int32" Nullable="false" />
+    <Property Name="Book_Id" Type="Int32" Nullable="false" />
+    <Property Name="Message1" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Msg_Date" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Book" Relationship="Self.FK_Messages_Book" FromRole="Messages" ToRole="Book" />
+    <NavigationProperty Name="User" Relationship="Self.FK_Messages_User" FromRole="Messages" ToRole="User" />
+    <NavigationProperty Name="User1" Relationship="Self.FK_Messages_User1" FromRole="Messages" ToRole="User" />
+  </EntityType>
+  <EntityType Name="Point">
+    <Key>
+      <PropertyRef Name="User_Id" />
+    </Key>
+    <Property Name="User_Id" Type="Int32" Nullable="false" />
+    <Property Name="Point1" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="User" Relationship="Self.FK_Point_User" FromRole="Point" ToRole="User" />
+  </EntityType>
+  <EntityType Name="Request">
+    <Key>
+      <PropertyRef Name="Seller_Id" />
+      <PropertyRef Name="Book_Id" />
+      <PropertyRef Name="Requester_Id" />
+    </Key>
+    <Property Name="Seller_Id" Type="Int32" Nullable="false" />
+    <Property Name="Book_Id" Type="Int32" Nullable="false" />
+    <Property Name="Requester_Id" Type="Int32" Nullable="false" />
+    <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Acctepted" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Offer_Points" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Seller_Approved_book" Relationship="Self.FK_Requests_Seller_Approved_book" FromRole="Requests" ToRole="Seller_Approved_book" />
+    <NavigationProperty Name="User" Relationship="Self.FK_Requests_User" FromRole="Requests" ToRole="User" />
+  </EntityType>
+  <EntityType Name="Review">
+    <Key>
+      <PropertyRef Name="Buyer_Id" />
+      <PropertyRef Name="Seller_Id" />
+      <PropertyRef Name="Book_Id" />
+    </Key>
+    <Property Name="Buyer_Id" Type="Int32" Nullable="false" />
+    <Property Name="Seller_Id" Type="Int32" Nullable="false" />
+    <Property Name="Book_Id" Type="Int32" Nullable="false" />
+    <Property Name="User_Review" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Rate" Type="Int32" Nullable="false" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Seller_Buyer_Book" Relationship="Self.FK_Review_Seller_Buyer_Book" FromRole="Review" ToRole="Seller_Buyer_Book" />
+  </EntityType>
+  <EntityType Name="Seller_Approved_book">
+    <Key>
+      <PropertyRef Name="Seller_Id" />
+      <PropertyRef Name="Book_Id" />
+    </Key>
+    <Property Name="Seller_Id" Type="Int32" Nullable="false" />
+    <Property Name="Book_Id" Type="Int32" Nullable="false" />
+    <Property Name="Approved" Type="String" MaxLength="3" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Book" Relationship="Self.FK_Seller_Approved_book_Book" FromRole="Seller_Approved_book" ToRole="Book" />
+    <NavigationProperty Name="Requests" Relationship="Self.FK_Requests_Seller_Approved_book" FromRole="Seller_Approved_book" ToRole="Requests" />
+    <NavigationProperty Name="User" Relationship="Self.FK_Seller_Approved_book_User" FromRole="Seller_Approved_book" ToRole="User" />
+    <NavigationProperty Name="Seller_Buyer_Book" Relationship="Self.FK_Seller_Buyer_Book_Seller_Approved_book" FromRole="Seller_Approved_book" ToRole="Seller_Buyer_Book" />
+  </EntityType>
+  <EntityType Name="Seller_Buyer_Book">
+    <Key>
+      <PropertyRef Name="Buyer_Id" />
+      <PropertyRef Name="Seller_Id" />
+      <PropertyRef Name="Book_Id" />
+    </Key>
+    <Property Name="Buyer_Id" Type="Int32" Nullable="false" />
+    <Property Name="Seller_Id" Type="Int32" Nullable="false" />
+    <Property Name="Book_Id" Type="Int32" Nullable="false" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="SellerConfirm" Type="String" MaxLength="3" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="BuyerConfirm" Type="String" MaxLength="3" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Review" Relationship="Self.FK_Review_Seller_Buyer_Book" FromRole="Seller_Buyer_Book" ToRole="Review" />
+    <NavigationProperty Name="Seller_Approved_book" Relationship="Self.FK_Seller_Buyer_Book_Seller_Approved_book" FromRole="Seller_Buyer_Book" ToRole="Seller_Approved_book" />
+    <NavigationProperty Name="User" Relationship="Self.FK_Seller_Buyer_Book_User" FromRole="Seller_Buyer_Book" ToRole="User" />
+  </EntityType>
+  <EntityType Name="SubCategory">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Category_Id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Books" Relationship="Self.FK_Book_SubCategory" FromRole="SubCategory" ToRole="Book" />
+    <NavigationProperty Name="Category" Relationship="Self.FK_SubCategory_Category" FromRole="SubCategory" ToRole="Category" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Pass" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Role" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="IsActive" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Histories" Relationship="Self.FK_History_User" FromRole="User" ToRole="History" />
+    <NavigationProperty Name="Histories1" Relationship="Self.FK_History_User1" FromRole="User" ToRole="History" />
+    <NavigationProperty Name="Messages" Relationship="Self.FK_Messages_User" FromRole="User" ToRole="Messages" />
+    <NavigationProperty Name="Messages1" Relationship="Self.FK_Messages_User1" FromRole="User" ToRole="Messages" />
+    <NavigationProperty Name="Point" Relationship="Self.FK_Point_User" FromRole="User" ToRole="Point" />
+    <NavigationProperty Name="Requests" Relationship="Self.FK_Requests_User" FromRole="User" ToRole="Requests" />
+    <NavigationProperty Name="Seller_Approved_book" Relationship="Self.FK_Seller_Approved_book_User" FromRole="User" ToRole="Seller_Approved_book" />
+    <NavigationProperty Name="Seller_Buyer_Book" Relationship="Self.FK_Seller_Buyer_Book_User" FromRole="User" ToRole="Seller_Buyer_Book" />
+  </EntityType>
+  <Association Name="FK_Book_City">
+    <End Role="City" Type="Self.City" Multiplicity="0..1" />
+    <End Role="Book" Type="Self.Book" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="City">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Book">
+        <PropertyRef Name="City_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Book_SubCategory">
+    <End Role="SubCategory" Type="Self.SubCategory" Multiplicity="0..1" />
+    <End Role="Book" Type="Self.Book" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SubCategory">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Book">
+        <PropertyRef Name="Subcategory_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Images_Book">
+    <End Role="Book" Type="Self.Book" Multiplicity="1" />
+    <End Role="Images" Type="Self.Image" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Book">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Images">
+        <PropertyRef Name="Book_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Messages_Book">
+    <End Role="Book" Type="Self.Book" Multiplicity="1" />
+    <End Role="Messages" Type="Self.Message" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Book">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Messages">
+        <PropertyRef Name="Book_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Seller_Approved_book_Book">
+    <End Role="Book" Type="Self.Book" Multiplicity="1" />
+    <End Role="Seller_Approved_book" Type="Self.Seller_Approved_book" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Book">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Seller_Approved_book">
+        <PropertyRef Name="Book_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SubCategory_Category">
+    <End Role="Category" Type="Self.Category" Multiplicity="1" />
+    <End Role="SubCategory" Type="Self.SubCategory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SubCategory">
+        <PropertyRef Name="Category_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_City_Governate">
+    <End Role="Governate" Type="Self.Governate" Multiplicity="1" />
+    <End Role="City" Type="Self.City" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Governate">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="City">
+        <PropertyRef Name="Governate_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_History_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="History" Type="Self.History" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="History">
+        <PropertyRef Name="Buyer_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_History_User1">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="History" Type="Self.History" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="History">
+        <PropertyRef Name="Seller_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Messages_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="Messages" Type="Self.Message" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Messages">
+        <PropertyRef Name="Sender_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Messages_User1">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="Messages" Type="Self.Message" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Messages">
+        <PropertyRef Name="Receiver_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Point_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="Point" Type="Self.Point" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Point">
+        <PropertyRef Name="User_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Requests_Seller_Approved_book">
+    <End Role="Seller_Approved_book" Type="Self.Seller_Approved_book" Multiplicity="1" />
+    <End Role="Requests" Type="Self.Request" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Seller_Approved_book">
+        <PropertyRef Name="Seller_Id" />
+        <PropertyRef Name="Book_Id" />
+      </Principal>
+      <Dependent Role="Requests">
+        <PropertyRef Name="Seller_Id" />
+        <PropertyRef Name="Book_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Requests_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="Requests" Type="Self.Request" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Requests">
+        <PropertyRef Name="Requester_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Review_Seller_Buyer_Book">
+    <End Role="Seller_Buyer_Book" Type="Self.Seller_Buyer_Book" Multiplicity="1" />
+    <End Role="Review" Type="Self.Review" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Seller_Buyer_Book">
+        <PropertyRef Name="Buyer_Id" />
+        <PropertyRef Name="Seller_Id" />
+        <PropertyRef Name="Book_Id" />
+      </Principal>
+      <Dependent Role="Review">
+        <PropertyRef Name="Buyer_Id" />
+        <PropertyRef Name="Seller_Id" />
+        <PropertyRef Name="Book_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Seller_Approved_book_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="Seller_Approved_book" Type="Self.Seller_Approved_book" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Seller_Approved_book">
+        <PropertyRef Name="Seller_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Seller_Buyer_Book_Seller_Approved_book">
+    <End Role="Seller_Approved_book" Type="Self.Seller_Approved_book" Multiplicity="1" />
+    <End Role="Seller_Buyer_Book" Type="Self.Seller_Buyer_Book" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Seller_Approved_book">
+        <PropertyRef Name="Seller_Id" />
+        <PropertyRef Name="Book_Id" />
+      </Principal>
+      <Dependent Role="Seller_Buyer_Book">
+        <PropertyRef Name="Seller_Id" />
+        <PropertyRef Name="Book_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Seller_Buyer_Book_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="Seller_Buyer_Book" Type="Self.Seller_Buyer_Book" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Seller_Buyer_Book">
+        <PropertyRef Name="Buyer_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="BooksEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Books" EntityType="Self.Book" />
+    <EntitySet Name="Categories" EntityType="Self.Category" />
+    <EntitySet Name="Cities" EntityType="Self.City" />
+    <EntitySet Name="Governates" EntityType="Self.Governate" />
+    <EntitySet Name="Histories" EntityType="Self.History" />
+    <EntitySet Name="Images" EntityType="Self.Image" />
+    <EntitySet Name="Messages" EntityType="Self.Message" />
+    <EntitySet Name="Points" EntityType="Self.Point" />
+    <EntitySet Name="Requests" EntityType="Self.Request" />
+    <EntitySet Name="Reviews" EntityType="Self.Review" />
+    <EntitySet Name="Seller_Approved_book" EntityType="Self.Seller_Approved_book" />
+    <EntitySet Name="Seller_Buyer_Book" EntityType="Self.Seller_Buyer_Book" />
+    <EntitySet Name="SubCategories" EntityType="Self.SubCategory" />
+    <EntitySet Name="Users" EntityType="Self.User" />
+    <AssociationSet Name="FK_Book_City" Association="Self.FK_Book_City">
+      <End Role="City" EntitySet="Cities" />
+      <End Role="Book" EntitySet="Books" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Book_SubCategory" Association="Self.FK_Book_SubCategory">
+      <End Role="SubCategory" EntitySet="SubCategories" />
+      <End Role="Book" EntitySet="Books" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Images_Book" Association="Self.FK_Images_Book">
+      <End Role="Book" EntitySet="Books" />
+      <End Role="Images" EntitySet="Images" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Messages_Book" Association="Self.FK_Messages_Book">
+      <End Role="Book" EntitySet="Books" />
+      <End Role="Messages" EntitySet="Messages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Seller_Approved_book_Book" Association="Self.FK_Seller_Approved_book_Book">
+      <End Role="Book" EntitySet="Books" />
+      <End Role="Seller_Approved_book" EntitySet="Seller_Approved_book" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SubCategory_Category" Association="Self.FK_SubCategory_Category">
+      <End Role="Category" EntitySet="Categories" />
+      <End Role="SubCategory" EntitySet="SubCategories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_City_Governate" Association="Self.FK_City_Governate">
+      <End Role="Governate" EntitySet="Governates" />
+      <End Role="City" EntitySet="Cities" />
+    </AssociationSet>
+    <AssociationSet Name="FK_History_User" Association="Self.FK_History_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="History" EntitySet="Histories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_History_User1" Association="Self.FK_History_User1">
+      <End Role="User" EntitySet="Users" />
+      <End Role="History" EntitySet="Histories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Messages_User" Association="Self.FK_Messages_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Messages" EntitySet="Messages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Messages_User1" Association="Self.FK_Messages_User1">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Messages" EntitySet="Messages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Point_User" Association="Self.FK_Point_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Point" EntitySet="Points" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Requests_Seller_Approved_book" Association="Self.FK_Requests_Seller_Approved_book">
+      <End Role="Seller_Approved_book" EntitySet="Seller_Approved_book" />
+      <End Role="Requests" EntitySet="Requests" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Requests_User" Association="Self.FK_Requests_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Requests" EntitySet="Requests" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Review_Seller_Buyer_Book" Association="Self.FK_Review_Seller_Buyer_Book">
+      <End Role="Seller_Buyer_Book" EntitySet="Seller_Buyer_Book" />
+      <End Role="Review" EntitySet="Reviews" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Seller_Approved_book_User" Association="Self.FK_Seller_Approved_book_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Seller_Approved_book" EntitySet="Seller_Approved_book" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Seller_Buyer_Book_Seller_Approved_book" Association="Self.FK_Seller_Buyer_Book_Seller_Approved_book">
+      <End Role="Seller_Approved_book" EntitySet="Seller_Approved_book" />
+      <End Role="Seller_Buyer_Book" EntitySet="Seller_Buyer_Book" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Seller_Buyer_Book_User" Association="Self.FK_Seller_Buyer_Book_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Seller_Buyer_Book" EntitySet="Seller_Buyer_Book" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

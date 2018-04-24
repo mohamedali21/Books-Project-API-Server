@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="28ea5b93e08540c880be1006d33b7535" Name="Diagram1">
+        <EntityTypeShape EntityType="BooksModel.Book" Width="1.5" PointX="3.75" PointY="17.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BooksModel.Category" Width="1.5" PointX="1.5" PointY="25.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BooksModel.City" Width="1.5" PointX="1.5" PointY="16.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BooksModel.Governate" Width="1.5" PointX="1.5" PointY="20" IsExpanded="true" />
+        <EntityTypeShape EntityType="BooksModel.History" Width="1.5" PointX="3" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BooksModel.Image" Width="1.5" PointX="6" PointY="18.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BooksModel.Message" Width="1.5" PointX="6" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BooksModel.Point" Width="1.5" PointX="3" PointY="13.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BooksModel.Request" Width="1.5" PointX="6" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BooksModel.Review" Width="1.5" PointX="10.5" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BooksModel.Seller_Approved_book" Width="1.5" PointX="6" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BooksModel.Seller_Buyer_Book" Width="1.5" PointX="8.25" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BooksModel.SubCategory" Width="1.5" PointX="1.5" PointY="22.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BooksModel.User" Width="1.5" PointX="0.75" PointY="7.5" IsExpanded="true" />
+        <AssociationConnector Association="BooksModel.FK_Book_City" ManuallyRouted="false" />
+        <AssociationConnector Association="BooksModel.FK_Book_SubCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="BooksModel.FK_Images_Book" ManuallyRouted="false" />
+        <AssociationConnector Association="BooksModel.FK_Messages_Book" ManuallyRouted="false" />
+        <AssociationConnector Association="BooksModel.FK_Seller_Approved_book_Book" ManuallyRouted="false" />
+        <AssociationConnector Association="BooksModel.FK_SubCategory_Category" ManuallyRouted="false" />
+        <AssociationConnector Association="BooksModel.FK_City_Governate" ManuallyRouted="false" />
+        <AssociationConnector Association="BooksModel.FK_History_User" ManuallyRouted="false" />
+        <AssociationConnector Association="BooksModel.FK_History_User1" ManuallyRouted="false" />
+        <AssociationConnector Association="BooksModel.FK_Messages_User" ManuallyRouted="false" />
+        <AssociationConnector Association="BooksModel.FK_Messages_User1" ManuallyRouted="false" />
+        <AssociationConnector Association="BooksModel.FK_Point_User" ManuallyRouted="false" />
+        <AssociationConnector Association="BooksModel.FK_Requests_Seller_Approved_book" ManuallyRouted="false" />
+        <AssociationConnector Association="BooksModel.FK_Requests_User" ManuallyRouted="false" />
+        <AssociationConnector Association="BooksModel.FK_Review_Seller_Buyer_Book" ManuallyRouted="false" />
+        <AssociationConnector Association="BooksModel.FK_Seller_Approved_book_User" ManuallyRouted="false" />
+        <AssociationConnector Association="BooksModel.FK_Seller_Buyer_Book_Seller_Approved_book" ManuallyRouted="false" />
+        <AssociationConnector Association="BooksModel.FK_Seller_Buyer_Book_User" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
